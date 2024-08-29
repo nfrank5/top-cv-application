@@ -4,13 +4,11 @@ import EducationExperience from "./EducationExperience.jsx"
 import GeneralInfo from "./GeneralInfo.jsx"
 import PracticalExperience from "./PracticalExperience.jsx"
 import CV from "../assets/data"
+import "../styles/FullCv.css"
 
 function FullCv(){
   
   const [cv, setCv] = useState(CV);
-
-  
-
   const [edit, setEdit] = useState(true)
 
   function onEdit(e){
@@ -20,16 +18,44 @@ function FullCv(){
 
   function onSubmit(e){
     e.preventDefault();
-   
-    console.log(e)
-    const newCv = {...cv}; 
-    //newCv.firstName = e.target.form.firstName.value;
-    
-    /* 
-      lastName: e.target.form.lastName.value,
-      email: e.target.form.email.value,
-      phone: e.target.form.telephone.value,};
- */    setEdit(false);
+    setEdit(false);
+    setCv(...cv);
+  }
+
+  function onRemoveEducationExperience(e){
+    e.preventDefault();
+    cv.educationExperience.pop();
+    const newCv = {...cv}
+    setCv(newCv);
+  }
+
+  function addEducationExperience(e){
+    e.preventDefault();
+    const newEducationExperience = {school: "",
+                                    title: "",
+                                    date: new Date(),
+                                    id: crypto.randomUUID()};
+    const newCv = {...cv}
+    newCv.educationExperience.push(newEducationExperience)
+    setCv(newCv);
+  }
+
+  function onRemoveWorkingExperience(e){
+    e.preventDefault();
+    cv.practicalExperience.pop();
+    const newCv = {...cv}
+    setCv(newCv);
+  }
+
+  function addWorkingExperience(e){
+    e.preventDefault();
+    const newWorkingExperience = {  company: "",
+                                    positionTitle: "",
+                                    dateFrom: new Date(),
+                                    dateUntil: new Date(),
+                                    id: crypto.randomUUID()};
+    const newCv = {...cv}
+    newCv.practicalExperience.push(newWorkingExperience)
     setCv(newCv);
   }
 
@@ -37,12 +63,12 @@ function FullCv(){
 
     <>
       <form >
-        <GeneralInfo cv={cv} edit={edit} onSubmit={onSubmit}></GeneralInfo>
+        <GeneralInfo cv={cv} edit={edit}></GeneralInfo>
 
-        <EducationExperience cv={cv} edit={edit} onSubmit={onSubmit}></EducationExperience>
+        <EducationExperience cv={cv} edit={edit} onRemoveEducationExperience={onRemoveEducationExperience} onAddEducationExperience ={addEducationExperience}></EducationExperience>
       
-        <PracticalExperience cv={cv} edit={edit} onSubmit={onSubmit}></PracticalExperience>
-
+        <PracticalExperience cv={cv} edit={edit} addExperience={addWorkingExperience} onRemoveWorkingExperience={onRemoveWorkingExperience}></PracticalExperience>
+        <br />
         <button onClick={onEdit}>Edit</button>
         <button onClick={onSubmit}>Submit</button>
       </form>

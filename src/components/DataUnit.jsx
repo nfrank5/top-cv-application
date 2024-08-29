@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Fragment } from 'react';
 
 
 function DataUnit({ type, data, edit, name, text }) {
@@ -7,18 +8,18 @@ function DataUnit({ type, data, edit, name, text }) {
 
   if (edit) {
     return (
-      <li>
+      <Fragment>
         <label htmlFor={name}>{text}: </label>
         <input type={type}
                value={value}
                onChange={(event) => setValue(event.target.value)}
                id={name}
                name={name} />
-      </li>
+      </Fragment>
     );
   } else {
     
-    return (<li>{text + ": " + value}</li>);
+    return (<p>{text + ": " + value}</p>);
   }
 }
 

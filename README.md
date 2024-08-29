@@ -3,4 +3,5 @@ In this project, I will be creating a small application where users can input th
 
 https://www.theodinproject.com/lessons/react-new-cv-application
 
+Live: https://top-cv-project.netlify.app/
 # React + Vite
